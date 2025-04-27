@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Coffee Shop</title>
+        <title>Crud</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
@@ -36,7 +36,7 @@
                             @endif
                             
                             <div class="p-4">
-                                <h2 class="text-xl font-semibold text-gray-800">{{ $product->name }}</h2>
+                                <h2 class="text-xl font-semibold text-gray-800 text-center">{{ $product->title }}</h2>
                                 <p class="text-gray-600 mt-2">{{ $product->description }}</p>
                                 <p class="text-indigo-600 font-bold mt-2">{{ number_format($product->price, 2) }} €</p>
                                 <a href="{{ route('products.show', $product->id) }}">Voir le produit</a>

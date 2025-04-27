@@ -31,14 +31,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255', // Changé de 'name' à 'title' pour correspondre au modèle
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $product = new Product();
-        $product->title = $validated['title']; // Changé de 'name' à 'title'
+        $product->title = $validated['title'];
         $product->description = $validated['description'] ?? null;
         $product->price = $validated['price'];
 
@@ -54,7 +54,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product) // Changé pour utiliser le Route Model Binding
+    public function show(Product $product)
     {
         return view('products.show', compact('product'));
     }
@@ -62,7 +62,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product) // Changé pour utiliser le Route Model Binding
+    public function edit(Product $product)
     {
         return view('products.edit', compact('product'));
     }
@@ -73,18 +73,17 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255', // Changé de 'name' à 'title'
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
-        $product->title = $validated['title']; // Changé de 'name' à 'title'
+        $product->title = $validated['title'];
         $product->description = $validated['description'] ?? null;
         $product->price = $validated['price'];
 
         if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image si elle existe
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
@@ -102,7 +101,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // Supprimer l'image associée si elle existe
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
